@@ -37,3 +37,4 @@ out/
 .vscode/
 /src/main/resources/aoolication.yml
 /src/main/resources/application.yml
+/src/resources/application.yml
