@@ -23,6 +23,6 @@ public class LambdaHandler implements RequestHandler<String, String> {
         } catch (IOException e) {
             throw new SaveFileException(IpoConstants.MESSAGE_400, e);
         }
-        return IpoConstants.MESSAGE_200;
+        return string;
     }
 }
