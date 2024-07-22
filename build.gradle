@@ -31,6 +31,29 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    //aws s3 관련 설정
+    implementation group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.12.619'
+
+    //csv reader
+    implementation 'org.apache.commons:commons-csv:1.11.0'
+
+    // swagger
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+
+    //aws lambda
+    implementation 'com.amazonaws:aws-lambda-java-core:1.2.1'
+
+    // AWS EventBridge (CloudWatch Events) 관련 종속성
+    implementation 'com.amazonaws:aws-java-sdk-events:1.12.619'
+
+
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.example.ipodbinsert.IpoDbInsertApplication'
+    }
 }
 
 tasks.named('test') {
