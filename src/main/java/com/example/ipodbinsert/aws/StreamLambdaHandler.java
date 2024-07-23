@@ -18,8 +18,6 @@ import java.io.OutputStream;
 
 public class StreamLambdaHandler implements RequestStreamHandler {
 
-
-
     private static SpringBootLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler;
 
     static {
@@ -27,7 +25,7 @@ public class StreamLambdaHandler implements RequestStreamHandler {
             //실행속도로 인해 ASYNC로 가자
             handler = new SpringBootProxyHandlerBuilder<AwsProxyRequest>()
                     .defaultProxy()
-                    .asyncInit()
+             //       .asyncInit()
                     .springBootApplication(IpoDbInsertApplication.class)
                     .buildAndInitialize();
         }catch (ContainerInitializationException e){
