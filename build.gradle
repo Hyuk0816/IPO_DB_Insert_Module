@@ -23,6 +23,19 @@ repositories {
     mavenCentral()
 }
 
+task buildZip(type : Zip){
+    from compileJava
+    from processResources
+    into('lib'){
+        from(configurations.compileClasspath){
+            exclude 'tomcat-embed-*'
+        }
+    }
+}
+build {
+    dependsOn buildZip
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
@@ -47,14 +60,10 @@ dependencies {
     // AWS EventBridge (CloudWatch Events) 관련 종속성
     implementation 'com.amazonaws:aws-java-sdk-events:1.12.619'
 
+    implementation 'com.amazonaws.serverless:aws-serverless-java-container-springboot3:2.0.3'
 
 }
 
-jar {
-    manifest {
-        attributes 'Main-Class': 'com.example.ipodbinsert.IpoDbInsertApplication'
-    }
-}
 
 tasks.named('test') {
     useJUnitPlatform()

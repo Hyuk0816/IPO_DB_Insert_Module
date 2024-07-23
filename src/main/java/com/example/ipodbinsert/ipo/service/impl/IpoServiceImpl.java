@@ -27,23 +27,31 @@ public class IpoServiceImpl implements IpoService {
     private final CSVReader csvReader;
     private final S3Service s3Service;
 
-    private LocalDate lastRunDate = LocalDate.now().minusDays(3); // 초기값 설정
+//    private LocalDate lastRunDate = LocalDate.now().minusDays(3); // 초기값 설정
+
+//    @Override
+//    @Transactional
+//    @Scheduled(cron = "0 0 23 * * ?") // 매일 23시에 실행
+//    public void save() throws IOException {
+//        LocalDate today = LocalDate.now();
+//        long daysBetween = ChronoUnit.DAYS.between(lastRunDate, today);
+//
+//        if (daysBetween >= 3) {
+//            // 3일이 지났다면 작업 수행
+//            s3Service.downloadFile();
+//            String filePath = S3ServiceImpl.saveDir + File.separator + S3ServiceImpl.fileName;
+//            List<Ipo> ipoList = csvReader.readCSV(filePath);
+//            ipoRepository.saveAll(ipoList);
+//            lastRunDate = today; // 마지막 실행일 갱신
+//        }
+//    }
+
 
     @Override
-    @Transactional
-    @Scheduled(cron = "0 0 23 * * ?") // 매일 23시에 실행
     public void save() throws IOException {
-        LocalDate today = LocalDate.now();
-        long daysBetween = ChronoUnit.DAYS.between(lastRunDate, today);
-
-        if (daysBetween >= 3) {
-            // 3일이 지났다면 작업 수행
-            s3Service.downloadFile();
-            String filePath = S3ServiceImpl.saveDir + File.separator + S3ServiceImpl.fileName;
-            List<Ipo> ipoList = csvReader.readCSV(filePath);
-            ipoRepository.saveAll(ipoList);
-            lastRunDate = today; // 마지막 실행일 갱신
-        }
+        s3Service.downloadFile();
+        String filePath = S3ServiceImpl.saveDir + File.separator + S3ServiceImpl.fileName;
+        List<Ipo> ipoList = csvReader.readCSV(filePath);
+        ipoRepository.saveAll(ipoList);
     }
-
 }
