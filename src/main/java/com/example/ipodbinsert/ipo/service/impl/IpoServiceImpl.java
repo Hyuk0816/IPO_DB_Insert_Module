@@ -33,7 +33,7 @@ public class IpoServiceImpl implements IpoService {
 
     @Override
     @Transactional
-    @Scheduled(cron = "0 0 2 * * ?") // 매일 새벽 3시에 실행 but 3일에 한번 실행 되도록 아래
+    @Scheduled(cron = "0 0 2 * * ?") // 매일 새벽 3시에 실행 but 2일에 한번 실행 되도록 아래
     public void save() throws IOException {
         LocalDate today = LocalDate.now();
         long daysBetween = ChronoUnit.DAYS.between(lastRunDate, today);
