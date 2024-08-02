@@ -38,8 +38,7 @@ public class IpoServiceImpl implements IpoService {
         LocalDate today = LocalDate.now();
         long daysBetween = ChronoUnit.DAYS.between(lastRunDate, today);
 
-
-        if (daysBetween >= 3) {
+        if (daysBetween >= 2) {
             // 3일이 지났다면 작업 수행
             //log DB를 하나 파자
             s3Service.downloadFile();
@@ -49,6 +48,7 @@ public class IpoServiceImpl implements IpoService {
             count++;
             log.info("데이터 갱신!" + count + "차");
             lastRunDate = today; // 마지막 실행일 갱신
+
         }
     }
 
