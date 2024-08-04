@@ -1,5 +1,7 @@
 package com.example.ipodbinsert.util.redis.config;
 
+import com.example.ipodbinsert.ipo.dto.IpoGetAllDto;
+import com.example.ipodbinsert.util.page.PageResponseVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
@@ -58,6 +60,15 @@ public class RedisRepositoryConfig {
         // 키와 값을 직렬화하는 방법 설정
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(new GenericToStringSerializer<>(Long.class));
+        redisTemplate.setEnableTransactionSupport(true);
+        return redisTemplate;
+    }
+
+    @Bean
+    public RedisTemplate<String, IpoGetAllDto> redisTemplateIpoGetAllDto() {
+        RedisTemplate<String,IpoGetAllDto> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setConnectionFactory(redisConnectionFactory());
+        redisTemplate.setDefaultSerializer(new GenericJackson2JsonRedisSerializer());
         redisTemplate.setEnableTransactionSupport(true);
         return redisTemplate;
     }
