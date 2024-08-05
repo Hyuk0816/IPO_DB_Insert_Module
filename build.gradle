@@ -23,18 +23,6 @@ repositories {
     mavenCentral()
 }
 
-task buildZip(type : Zip){
-    from compileJava
-    from processResources
-    into('lib'){
-        from(configurations.compileClasspath){
-            exclude 'tomcat-embed-*'
-        }
-    }
-}
-build {
-    dependsOn buildZip
-}
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -54,13 +42,15 @@ dependencies {
     // swagger
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
 
-    //aws lambda
-    implementation 'com.amazonaws:aws-lambda-java-core:1.2.1'
+    //redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
-    // AWS EventBridge (CloudWatch Events) 관련 종속성
-    implementation 'com.amazonaws:aws-java-sdk-events:1.12.619'
+    // queryDSL
+    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+    annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
+    annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+    annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 
-    implementation 'com.amazonaws.serverless:aws-serverless-java-container-springboot3:2.0.3'
 
 }
 
