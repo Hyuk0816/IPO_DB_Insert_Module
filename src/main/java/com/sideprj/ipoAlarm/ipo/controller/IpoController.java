@@ -23,7 +23,7 @@ public class IpoController {
 
     @PostMapping("/data")
     public ResponseEntity<IpoDataSaveVo> save() throws IOException {
-        ipoService.save();
+        ipoService.saveIpoData();
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(new IpoDataSaveVo(IpoConstants.STATUS_200, IpoConstants.MESSAGE_200));

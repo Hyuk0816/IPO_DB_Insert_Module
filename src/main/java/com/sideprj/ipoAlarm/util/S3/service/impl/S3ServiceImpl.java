@@ -24,11 +24,10 @@ public class S3ServiceImpl implements S3Service {
     private final AmazonS3 s3Client;
     @Value("${cloud.aws.s3.bucket}")
     private String downBucket;
-    public static final String fileName = "ipo_data.csv";
     public static final String saveDir = System.getProperty("user.dir");
 
     @Override
-    public void downloadFile() {
+    public void downloadFile(String fileName) {
         try{
             S3ObjectInputStream objectContent = s3Client.getObject(downBucket, fileName).getObjectContent();
             saveFile(objectContent, fileName);

@@ -8,7 +8,8 @@ import java.io.IOException;
 
 public interface IpoService {
 
-    void save() throws IOException;
+    void saveIpoData() throws IOException;
+
 
 
 }

@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 public interface S3Service {
-    void downloadFile() throws FileNotFoundException;
+    void downloadFile(String fileName) throws FileNotFoundException;
 
     void saveFile(InputStream inputStream, String fileName) throws FileNotFoundException;
 
