@@ -3,14 +3,14 @@ package com.sideprj.ipoAlarm.ipo.service.impl;
 import com.sideprj.ipoAlarm.ipo.entity.Ipo;
 import com.sideprj.ipoAlarm.ipo.repository.IpoRepository;
 import com.sideprj.ipoAlarm.ipo.service.IpoService;
-import com.sideprj.ipoAlarm.ipodetail.entity.IpoDetail;
-import com.sideprj.ipoAlarm.ipodetail.repository.IpoDetailRepository;
+
 import com.sideprj.ipoAlarm.util.S3.constants.SaveFileConstants;
 import com.sideprj.ipoAlarm.util.S3.service.S3Service;
 import com.sideprj.ipoAlarm.util.S3.service.impl.S3ServiceImpl;
 import com.sideprj.ipoAlarm.util.csv.CSVReader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +29,7 @@ public class IpoServiceImpl implements IpoService {
     private final IpoRepository ipoRepository;
     private final CSVReader csvReader;
     private final S3Service s3Service;
-
+    private final RedisTemplate<String, String> redisTemplate;
     private LocalDate lastRunDate = LocalDate.now().minusDays(3); // 초기값 설정
 
     private int count = 0;
@@ -52,6 +52,7 @@ public class IpoServiceImpl implements IpoService {
             ipoRepository.saveAll(ipoList);
             count++;
             log.info("ipo 데이터 갱신!{}차", count);
+            redisTemplate.opsForList().rightPush("IpoDataRefresh", String.valueOf(LocalDate.now()));
             lastRunDate = today; // 마지막 실행일 갱신
         }
     }
