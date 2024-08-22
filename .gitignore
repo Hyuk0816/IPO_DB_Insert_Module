@@ -40,3 +40,5 @@ out/
 /src/main/resources/application.yml
 /template.yml
 /ipo_data.csv
+/ipo_detail.csv
+/listing_shares.csv
