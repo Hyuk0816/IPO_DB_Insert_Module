@@ -4,6 +4,8 @@ package com.sideprj.ipoAlarm.util.csv;
 import com.sideprj.ipoAlarm.ipo.entity.Ipo;
 import com.sideprj.ipoAlarm.ipodetail.entity.IpoDetail;
 import com.sideprj.ipoAlarm.listingshares.entity.ListingShares;
+import com.sideprj.ipoAlarm.util.converter.DateFormatter;
+import com.sideprj.ipoAlarm.util.converter.DoubleFormatter;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -112,13 +114,13 @@ public class CSVReader {
 
                 listingShares = listingShares.builder()
                         .ipoName(name)
-                        .listingDate(record.get("listingDate"))
+                        .listingDate(DateFormatter.format(record.get("listingDate")))
                         .currentPrice(record.get("currentPrice"))
-                        .changeRatePrevious(record.get("changeFromPreviousDay"))
+                        .changeRatePrevious(DoubleFormatter.parseDouble(record.get("changeFromPreviousDay")))
                         .offeringPrice(record.get("offeringPrice"))
-                        .changeRateOfferingPrice(record.get("changeRateFromOfferingPrice"))
+                        .changeRateOfferingPrice(DoubleFormatter.parseDouble(record.get("changeRateFromOfferingPrice")))
                         .openingPrice(record.get("openingPrice"))
-                        .changeRateOpeningToOfferingPrice(record.get("openingPriceToOfferingPrice"))
+                        .changeRateOpeningToOfferingPrice(DoubleFormatter.parseDouble(record.get("openingPriceToOfferingPrice")))
                         .closingPriceFirstDay(record.get("closingPriceOnFirstDay"))
                         .build();
 

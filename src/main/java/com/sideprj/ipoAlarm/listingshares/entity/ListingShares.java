@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -25,25 +26,25 @@ public class ListingShares {
     private String ipoName;
 
     @Column(name = "listing_date", nullable = false)
-    private String listingDate;
+    private Date listingDate;
 
-    @Column(name = "current_price", nullable = false)
+    @Column(name = "current_price", nullable = true)
     private String currentPrice;
 
-    @Column(name = "change_rate_previous", nullable = false)
-    private String changeRatePrevious;
+    @Column(name = "change_rate_previous", nullable = true)
+    private Double changeRatePrevious;
 
-    @Column(name = "offering_price", nullable = false)
+    @Column(name = "offering_price", nullable = true)
     private String offeringPrice;
 
-    @Column(name = "change_rate_offering_price", nullable = false)
-    private String changeRateOfferingPrice;
+    @Column(name = "change_rate_offering_price", nullable = true)
+    private Double changeRateOfferingPrice;
 
-    @Column(name = "opening_price", nullable = false)
+    @Column(name = "opening_price", nullable = true)
     private String openingPrice;
 
-    @Column(name = "change_rate_opening_to_OfferingPrice", nullable = false)
-    private String changeRateOpeningToOfferingPrice;
+    @Column(name = "change_rate_opening_to_OfferingPrice", nullable = true)
+    private Double changeRateOpeningToOfferingPrice;
 
     @Column(name = "closing_price_first_day", nullable = false)
     private String closingPriceFirstDay;

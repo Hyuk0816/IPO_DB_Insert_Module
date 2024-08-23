@@ -33,7 +33,7 @@ public class ListingSharesServiceImpl implements ListingSharesService {
 
     @Override
     @Transactional
-    @Scheduled(cron = "0 0 3 * * ?") //매일 3시에 진행
+    @Scheduled(cron = "0 30 9 * * ?") //매일 3시에 진행
     public void saveListingShares() throws IOException {
         s3Service.downloadFile(SaveFileConstants.listingShares);
         String filePath = S3ServiceImpl.saveDir + File.separator + SaveFileConstants.listingShares;
