@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -30,8 +31,8 @@ public class IpoGetAllDto {
     private String securities;
 
     @Schema(description = "청약 시작일", example = "2024.07.17")
-    private Date startDate;
+    private LocalDateTime startDate;
 
     @Schema(description = "청약 마감일", example = "2024.07.19")
-    private Date endDate;
+    private LocalDateTime endDate;
 }

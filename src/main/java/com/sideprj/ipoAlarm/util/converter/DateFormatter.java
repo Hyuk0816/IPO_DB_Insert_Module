@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
@@ -14,6 +15,7 @@ public class DateFormatter {
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+    private static final DateTimeFormatter LOCALTIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     public static LocalDate format(String dateTime) {
         return dateTime != null ? parse(dateTime) : null;
     }
@@ -22,6 +24,24 @@ public class DateFormatter {
         if (dateTimeString != null) {
             try {
                 return LocalDate.parse(dateTimeString, FORMATTER);
+                // LocalDate를 java.sql.Date로 변환
+            } catch (DateTimeParseException e) {
+                // 날짜 파싱 오류 처리
+                // 또는 로그로 기록
+                log.error(e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    public static LocalDateTime formatLocalDateTime(String dateTime) {
+        return dateTime != null ? localDateTimeParser(dateTime) : null;
+    }
+
+    public static LocalDateTime localDateTimeParser(String dateTimeString) {
+        if (dateTimeString != null) {
+            try {
+                return LocalDateTime.parse(dateTimeString, LOCALTIME_FORMATTER);
                 // LocalDate를 java.sql.Date로 변환
             } catch (DateTimeParseException e) {
                 // 날짜 파싱 오류 처리

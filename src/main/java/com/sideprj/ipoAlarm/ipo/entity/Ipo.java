@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
@@ -25,10 +26,10 @@ public class Ipo {
     private String ipoName;
 
     @Column(name = "start_date", nullable = false)
-    private Date startDate;
+    private LocalDateTime startDate;
 
     @Column(name = "end_date", nullable = false)
-    private Date endDate;
+    private LocalDateTime endDate;
 
     @Column(name = "confirm_price")
     private String confirmPrice;
