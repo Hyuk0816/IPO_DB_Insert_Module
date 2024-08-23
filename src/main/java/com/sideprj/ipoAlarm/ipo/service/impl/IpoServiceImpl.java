@@ -30,7 +30,6 @@ public class IpoServiceImpl implements IpoService {
     private final CSVReader csvReader;
     private final S3Service s3Service;
     private final RedisTemplate<String, String> redisTemplate;
-    private LocalDate lastRunDate = LocalDate.now().minusDays(3); // 초기값 설정
 
     private int count = 0;
 
@@ -40,21 +39,15 @@ public class IpoServiceImpl implements IpoService {
     @Transactional
     @Scheduled(cron = "0 0 2 * * ?") // 매일 새벽 2시에 실행 but 2일에 한번 실행 되도록 아래
     public void saveIpoData() throws IOException {
-        LocalDate today = LocalDate.now();
-        long daysBetween = ChronoUnit.DAYS.between(lastRunDate, today);
 
-        if (daysBetween >= 2) {
-            // 3일이 지났다면 작업 수행
-            //log DB를 하나 파자
-            s3Service.downloadFile(SaveFileConstants.ipoData);
-            String filePath = S3ServiceImpl.saveDir + File.separator + SaveFileConstants.ipoData;
-            List<Ipo> ipoList = csvReader.readCSVIpoData(filePath);
-            ipoRepository.saveAll(ipoList);
-            count++;
-            log.info("ipo 데이터 갱신!{}차", count);
-            redisTemplate.opsForList().rightPush("IpoDataRefresh", String.valueOf(LocalDate.now()));
-            lastRunDate = today; // 마지막 실행일 갱신
-        }
+        s3Service.downloadFile(SaveFileConstants.ipoData);
+        String filePath = S3ServiceImpl.saveDir + File.separator + SaveFileConstants.ipoData;
+        List<Ipo> ipoList = csvReader.readCSVIpoData(filePath);
+        ipoRepository.saveAll(ipoList);
+        count++;
+        log.info("ipo 데이터 갱신!{}차", count);
+        redisTemplate.opsForList().rightPush("IpoDataRefresh", String.valueOf(LocalDate.now()));
+
     }
 
 
