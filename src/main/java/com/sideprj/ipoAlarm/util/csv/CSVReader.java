@@ -114,7 +114,7 @@ public class CSVReader {
 
                 listingShares = listingShares.builder()
                         .ipoName(name)
-                        .listingDate(DateFormatter.format(record.get("listingDate")))
+                        .listingDate(DateFormatter.convertDate(record.get("listingDate")))
                         .currentPrice(record.get("currentPrice"))
                         .changeRatePrevious(DoubleFormatter.parseDouble(record.get("changeFromPreviousDay")))
                         .offeringPrice(record.get("offeringPrice"))
@@ -126,6 +126,8 @@ public class CSVReader {
 
                 listingSharesMap.put(name, listingShares);
             }
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
         return new ArrayList<>(listingSharesMap.values());
     }

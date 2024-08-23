@@ -2,6 +2,8 @@ package com.sideprj.ipoAlarm.util.converter;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 import java.time.format.DateTimeFormatter;
@@ -28,5 +30,13 @@ public class DateFormatter {
             }
         }
         return null;
+    }
+    public static Date convertDate(String date) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        if(date != null){
+            return format.parse(date);
+        }else{
+            return null;
+        }
     }
 }
