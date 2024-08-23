@@ -26,10 +26,10 @@ public class Ipo {
     private String ipoName;
 
     @Column(name = "start_date", nullable = false)
-    private LocalDateTime startDate;
+    private Date startDate;
 
     @Column(name = "end_date", nullable = false)
-    private LocalDateTime endDate;
+    private Date endDate;
 
     @Column(name = "confirm_price")
     private String confirmPrice;

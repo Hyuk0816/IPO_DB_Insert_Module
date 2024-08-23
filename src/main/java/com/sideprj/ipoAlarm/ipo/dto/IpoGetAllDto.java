@@ -31,8 +31,8 @@ public class IpoGetAllDto {
     private String securities;
 
     @Schema(description = "청약 시작일", example = "2024.07.17")
-    private LocalDateTime startDate;
+    private Date startDate;
 
     @Schema(description = "청약 마감일", example = "2024.07.19")
-    private LocalDateTime endDate;
+    private Date endDate;
 }

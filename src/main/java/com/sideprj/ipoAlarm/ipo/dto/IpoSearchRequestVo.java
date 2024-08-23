@@ -15,8 +15,8 @@ public class IpoSearchRequestVo {
     private String ipoName;
 
     @Schema(description = "조회 기준 시작", example = "2024-07-01")
-    private LocalDateTime searchStartDate;
+    private Date searchStartDate;
 
     @Schema(description = "조회 기준 끝", example = "2024-07-30")
-    private LocalDateTime searchEndDate;
+    private Date searchEndDate;
 }

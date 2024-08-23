@@ -42,6 +42,8 @@ public class CSVReader {
             for (CSVRecord record : csvParser) {
                 String name = record.get("name");
                 Ipo ipo = ipoMap.getOrDefault(name, new Ipo());
+                SimpleDateFormat startDateFormatter = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+                SimpleDateFormat endDateFormatter = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 
                 ipo = ipo.builder()
                         .ipoName(name)
@@ -49,12 +51,14 @@ public class CSVReader {
                         .ipoPrice(record.get("IPOPrice"))
                         .competitionRate(record.get("competitionRate"))
                         .securities(record.get("securities"))
-                        .startDate(DateFormatter.formatLocalDateTime(record.get("start_date")))
-                        .endDate(DateFormatter.formatLocalDateTime(record.get("end_date")))
+                        .startDate(startDateFormatter.parse(record.get("start_date")))
+                        .endDate(endDateFormatter.parse(record.get("end_date")))
                         .build();
 
                 ipoMap.put(name, ipo);
             }
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
         return new ArrayList<>(ipoMap.values());
     }
